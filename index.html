@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Girl 💖</title>
+
+    <!-- Гоё фонтууд холбох -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka+One&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink1: #ff4d6d;
+            --pink2: #ff8fa3;
+            --bg: #fff0f5;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ffc2d1, #ff8fab, #ffc2d1, #ffccd5);
+            background-size: 400% 400%;
+            animation: bgMove 15s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* CARD */
+        .card {
+            width: 900px;
+            height: 550px;
+            border-radius: 40px;
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            display: flex;
+            padding: 40px;
+            gap: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* LEFT SIDE */
+        .left {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .title-group {
+            position: relative;
+        }
+
+        /* Төрсөн өдрийн малгай */
+        .hat {
+            position: absolute;
+            width: 90px;
+            top: -55px;
+            left: 170px;
+            transform: rotate(15deg);
+            z-index: 20;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        }
+
+        h1 {
+            margin: 0;
+            font-family: 'Fredoka One', cursive;
+            line-height: 0.9;
+        }
+
+        .happy {
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            font-size: 90px;
+            text-shadow: 3px 3px 0px var(--pink1);
+        }
+
+        .birthday {
+            color: var(--pink1);
+            font-size: 70px;
+            text-transform: uppercase;
+            -webkit-text-stroke: 2px white;
+        }
+
+        .date-badge {
+            margin-top: 15px;
+            color: #777;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* BUTTONS */
+        .btn {
+            margin-top: 30px;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, var(--pink1), var(--pink2));
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: fit-content;
+        }
+
+        .btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.5);
+        }
+
+        /* RIGHT SIDE - IMAGE */
+        .right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-frame {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 15px 40px rgba(255, 143, 163, 0.4);
+            border: 5px solid var(--pink2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .circle-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Зургийг бүтэн дүүргэх код */
+            object-position: center;
+            border-radius: 50%;
+            transition: 0.5s ease;
+        }
+
+        .change-btn {
+            margin-top: -30px; /* Зураг дээрээ бага зэрэг гаргах */
+            z-index: 20;
+            border: 4px solid white !important;
+        }
+
+        /* POPUP MESSAGE */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .overlay.active { opacity: 1; pointer-events: all; }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 101;
+        }
+
+        .popup.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+        .popup h2 { color: var(--pink1); margin-top: 0; }
+
+        .popup-img-frame {
+            width: 180px;
+            height: 180px;
+            margin: 20px auto;
+            border-radius: 20px;
+            border: 5px solid var(--pink2);
+            overflow: hidden;
+        }
+
+        .popup-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* HEARTS ANIMATION */
+        .heart {
+            position: absolute;
+            color: var(--pink1);
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Зүүн тал -->
+        <div class="left">
+            <div class="title-group">
+             
+                <h1 class="happy">Happy</h1>
+                <h1 class="birthday">Birthday</h1>
+            </div>
+            
+            <div class="date-badge">📅 21 April 2026</div>
+            
+            <button class="btn" onclick="openMsg()">Open Message 💌</button>
+        </div>
+
+        <!-- Баруун тал -->
+        <div class="right">
+            <div class="circle-frame">
+                <!-- Эхний зураг (LEGO) -->
+                <img id="mainImage" src="image/lego.jpg">
+            </div>
+            <button class="btn change-btn" onclick="nextImage()">Change Photo 📸</button>
+        </div>
+    </div>
+
+    <!-- POPUP & OVERLAY -->
+    <div class="overlay" id="overlay" onclick="closeMsg()"></div>
+    <div class="popup" id="popup">
+        <h2>💖 Happy Birthday! 💖</h2>
+        <div class="popup-img-frame">
+            <img src="image/galu.jpg">
+        </div>
+        <p>Төрсөн өдрийн мэнд girl! 🎂
+            Намайг мартаагүй биз дээ ? hha
+            Насан баярын мэнд , намайг санагалзаад савтлаа баярлаарай 😁
+            За тэгээд бүх зүйлд нь амжилт хүсье 😘
+
+            Нас нэмсэн ч ухаан нэмэгдсэн эсэх нь эргэлзээтэй шүү 🤣
+            ! Үргэлж гэрэлтэж яваарай ✨🎂</p>
+        <button class="btn" onclick="closeMsg()">Close</button>
+    </div>
+
+    <!-- Confetti Сан холбох -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const images = [
+            "image/lego.jpg",
+            "image/light.jpg",
+            "image/miss me.jpg",
+            "image/girls.jpg",
+            "image/k.jpg"
+        ];
+
+        let index = 0;
+
+        // Зураг солих функц
+        function nextImage() {
+            const img = document.getElementById("mainImage");
+            index = (index + 1) % images.length;
+
+            // Солигдох эффект
+            img.style.opacity = "0";
+            img.style.transform = "scale(0.8)";
+
+            setTimeout(() => {
+                img.src = images[index];
+                img.style.opacity = "1";
+                img.style.transform = "scale(1)";
+
+                // Confetti буудуулах
+                confetti({
+                    particleCount: 80,
+                    spread: 60,
+                    origin: { y: 0.7 },
+                    colors: ['#ff4d6d', '#ff8fa3', '#ffffff']
+                });
+            }, 300);
+        }
+
+        // Мессеж нээх
+        function openMsg() {
+            document.getElementById("popup").classList.add("active");
+            document.getElementById("overlay").classList.add("active");
+
+            // Том confetti
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff4d6d', '#ff8fa3']
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff4d6d', '#ff8fa3']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Мессеж хаах
+        function closeMsg() {
+            document.getElementById("popup").classList.remove("active");
+            document.getElementById("overlay").classList.remove("active");
+        }
+
+        // Хөвдөг зүрхнүүд үүсгэгч
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = ["💖", "💗", "💝", "🌸"][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (15 + Math.random() * 20) + "px";
+            heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 6000);
+        }, 600);
+    </script>
+</body>
+</html>
